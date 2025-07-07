@@ -1,0 +1,19 @@
+# Create Moving Averages
+data['SMA_5'] = data['Close'].rolling(window=5).mean()
+data['SMA_20'] = data['Close'].rolling(window=20).mean()
+
+# Relative Strength Index (RSI)
+def compute_rsi(data, window=14):
+    delta = data['Close'].diff()
+    gain = (delta.where(delta > 0, 0)).rolling(window=window).mean()
+    loss = (-delta.where(delta < 0, 0)).rolling(window=window).mean()
+    rs = gain / loss
+    rsi = 100 - (100 / (1 + rs))
+    return rsi
+
+data['RSI'] = compute_rsi(data)
+
+# Moving Average Convergence Divergence (MACD)
+data['MACD'] = data['Close'].ewm(span=12, adjust=False).mean() - data['Close'].ewm(span=26, adjust=False).mean()
+
+print(data.tail())  # Display with new features
