@@ -1,0 +1,49 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+def compute_drawdown(cum_returns: pd.Series) -> pd.Series:
+    """Computes drawdown as % from peak"""
+    peak = cum_returns.cummax()
+    drawdown = (cum_returns - peak) / peak
+    return drawdown
+
+def plot_drawdown(dates, predicted_prices):
+    # Step 1: Calculate daily returns
+    daily_returns = predicted_prices.pct_change().fillna(0)
+
+    # Step 2: Calculate cumulative returns
+    cum_returns = (1 + daily_returns).cumprod()
+
+    # Step 3: Calculate drawdown
+    drawdown = compute_drawdown(cum_returns)
+    max_dd = drawdown.min()
+
+    # Step 4: Plot
+    plt.figure(figsize=(12, 6))
+    plt.plot(dates, drawdown * 100, color='red', linewidth=2, label='Drawdown (%)')
+    plt.fill_between(dates, drawdown * 100, 0, color='red', alpha=0.3)
+    plt.title("🔻 Drawdown Curve – Your Model (May 2024 – March 2025)", fontsize=14)
+    plt.xlabel("Date", fontsize=12)
+    plt.ylabel("Drawdown (%)", fontsize=12)
+    plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+
+    # Print Max Drawdown
+    print(f"📉 Maximum Drawdown: {max_dd:.2%}")
+
+# === Generate Simulated Data ===
+# Timeline: Business days from May 2024 to March 2025
+dates = pd.date_range(start='2024-05-01', end='2025-03-31', freq='B')  # Business days
+
+# Simulated predicted price series (replace with your model's predictions)
+np.random.seed(42)
+predicted_prices = pd.Series(
+    np.cumsum(np.random.normal(loc=0.25, scale=1.0, size=len(dates))) + 80,
+    index=dates
+)
+
+# === Run the drawdown plot ===
+plot_drawdown(dates, predicted_prices)
