@@ -1,0 +1,62 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# === Timeline: May 2024 – March 2025
+dates = pd.date_range(start='2024-05-01', end='2025-03-31', freq='B')
+
+# === Simulated predicted price series (replace with real model predictions)
+np.random.seed(42)
+predicted_prices = pd.Series(
+    np.cumsum(np.random.normal(loc=0.25, scale=1.0, size=len(dates))) + 80,
+    index=dates
+)
+
+# === Return + Risk Metrics ===
+returns = predicted_prices.pct_change().dropna()
+cum_returns = (1 + returns).cumprod()
+risk_free_rate = 0.04 / 252  # daily risk-free (approx 4% annualized)
+
+# 🔹 Sharpe Ratio
+sharpe_ratio = (returns.mean() - risk_free_rate) / returns.std()
+
+# 🔹 Sortino Ratio
+downside_returns = returns[returns < 0]
+sortino_ratio = (returns.mean() - risk_free_rate) / downside_returns.std()
+
+# 🔹 Standard Deviation
+std_dev = returns.std()
+
+# 🔹 Max Drawdown
+peak = cum_returns.cummax()
+drawdown = (cum_returns - peak) / peak
+max_drawdown = drawdown.min()
+
+# === Build Risk Table as DataFrame ===
+risk_table = pd.DataFrame({
+    'Metric': ['Sharpe Ratio', 'Sortino Ratio', 'Standard Deviation', 'Max Drawdown'],
+    'Value': [sharpe_ratio, sortino_ratio, std_dev, max_drawdown]
+})
+
+# === Print Table ===
+print("\n📊 Risk Metrics Table:\n")
+print(risk_table.to_string(index=False, float_format="%.4f"))
+
+# === Plot Risk Metrics ===
+plt.figure(figsize=(10, 5))
+bars = plt.bar(risk_table['Metric'], risk_table['Value'], color=['skyblue', 'orange', 'green', 'red'])
+
+# Add value labels
+for bar in bars:
+    height = bar.get_height()
+    plt.annotate(f'{height:.4f}',
+                 xy=(bar.get_x() + bar.get_width() / 2, height),
+                 xytext=(0, 5),
+                 textcoords="offset points",
+                 ha='center', va='bottom', fontsize=10)
+
+plt.title("📉 Risk Metrics – Your Model (May 2024 – March 2025)", fontsize=14)
+plt.ylabel("Value", fontsize=12)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.show()
