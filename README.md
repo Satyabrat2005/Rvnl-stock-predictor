@@ -11,6 +11,7 @@ This project proposes a hybrid AI-driven pipeline for stock market prediction an
 1. **Forecasting Returns:** Predict log returns over a fixed horizon (Δt).
 2. **Trading Signal Generation:** Convert predictions into decisions using mathematically defined thresholds.
 3. **Performance Evaluation:** Benchmark strategy vs. market baselines using risk-adjusted metrics.
+4. **Risk Analysis:** Cinvert Predicted and actual model to calculate risk analysis using graph
 
 ---
 
