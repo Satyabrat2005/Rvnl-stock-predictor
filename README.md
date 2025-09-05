@@ -174,7 +174,8 @@ Where:
 
 ## 📌 Citation
 
-📄 If you use this work or reference our pipeline, please cite the research paper upon release.
+📄 If you use this work or reference our pipeline, Paper is released on Academia.edu 
+
 
 ---
 
