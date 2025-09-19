@@ -1,0 +1,29 @@
+import yfinance as yf
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. Download historical data (RVNL.NS = NSE symbol)
+ticker = "RVNL.NS"
+start_date = "2024-05-01"
+end_date   = "2025-02-28"
+
+data = yf.download(ticker, start=start_date, end=end_date)
+if data.empty:
+    raise ValueError("No data fetched. Check ticker or network.")
+
+# 2. Simulate equity (assuming you bought 1 share on start_date)
+data['Equity'] = data['Close']  # equity = holding 1 share
+
+# 3. Plot the equity curve
+plt.figure(figsize=(12, 6))
+plt.plot(data.index, data['Equity'], label='RVNL Equity Curve', color='darkred', linewidth=2)
+
+# Formatting
+plt.title('RVNL Equity Curve (May 2024 – Feb 2025)', fontsize=16)
+plt.xlabel('Date', fontsize=14)
+plt.ylabel('RVNL Closing Price (₹)', fontsize=14)
+plt.grid(True, linestyle='--', alpha=0.5)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.legend()
+plt.show()
