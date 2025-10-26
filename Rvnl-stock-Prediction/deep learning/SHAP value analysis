@@ -1,0 +1,42 @@
+import pandas as pd
+import numpy as np
+import shap
+import xgboost as xgb
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+
+# Load your real RVNL dataset
+# data = pd.read_csv("rvnl_stock_data.csv") # replace with actual CSV
+
+# Simulated example dataset
+dates = pd.date_range(start="2024-05-01", end="2025-02-28", freq='B')
+n = len(dates)
+data = pd.DataFrame({
+    'date': dates,
+    'open': np.random.normal(75, 2, n),
+    'high': np.random.normal(77, 2, n),
+    'low': np.random.normal(73, 2, n),
+    'close': np.random.normal(75, 2, n),
+    'volume': np.random.randint(100000, 500000, n)
+})
+data['target'] = data['close'].shift(-1) - data['close']
+data.dropna(inplace=True)
+
+# Features
+X = data[['open', 'high', 'low', 'close', 'volume']]
+y = data['target']
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# XGBoost model
+model = xgb.XGBRegressor(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)
+
+# SHAP values
+explainer = shap.Explainer(model)
+shap_values = explainer(X_test)
+
+# SHAP summary plot
+shap.summary_plot(shap_values, X_test, plot_type="bar")  # Bar chart
+shap.summary_plot(shap_values, X_test)  # Beeswarm plot
