@@ -1,0 +1,41 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load your stock data
+# Replace with your actual data path
+# df = pd.read_csv("rvnl_stock_data.csv", parse_dates=['date'])
+
+# For demo: Simulate RVNL-like stock data
+dates = pd.date_range(start="2024-05-01", end="2025-02-28", freq="B")
+n = len(dates)
+np.random.seed(42)
+prices = np.cumsum(np.random.normal(0.2, 1, n)) + 70  # Simulated price series
+df = pd.DataFrame({'date': dates, 'close': prices})
+df.set_index('date', inplace=True)
+
+# Simulate signals (buy=1, sell=0)
+# In your case, replace this with your model's signal column
+df['signal'] = np.where((df['close'].diff() > 0), 1, 0)
+
+# Compute daily returns
+df['daily_return'] = df['close'].pct_change()
+
+# Strategy returns: take position only when signal is 1 (buy)
+df['strategy_return'] = df['signal'].shift(1) * df['daily_return']
+
+# Cumulative returns
+df['buy_hold_curve'] = (1 + df['daily_return']).cumprod()
+df['strategy_curve'] = (1 + df['strategy_return']).cumprod()
+
+# Plot the comparison
+plt.figure(figsize=(12, 6))
+plt.plot(df.index, df['buy_hold_curve'], label='Buy & Hold', linewidth=2)
+plt.plot(df.index, df['strategy_curve'], label='Your Strategy', linewidth=2)
+plt.title('Buy & Hold vs Strategy Performance - RVNL')
+plt.xlabel('Date')
+plt.ylabel('Growth of ₹1 Investment')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
