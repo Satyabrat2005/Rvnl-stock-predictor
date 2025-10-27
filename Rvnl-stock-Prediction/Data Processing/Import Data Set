@@ -1,0 +1,14 @@
+import yfinance as yf
+
+# Define the stock symbol and time range
+ticker = "RVNL.NS"  # Example: Apple stock
+start_date = "2023-06-01"
+end_date = "2025-02-05"
+
+# Download historical data
+data = yf.download(ticker, start=start_date, end=end_date)
+
+# Save data to a CSV file
+data.to_csv("RVNL.NS_Historical_Data.csv")
+
+print(data.head())  # Display first few rows
