@@ -20,3 +20,9 @@ class PortfolioBacktest:
         self.initial_capital = initial_capital
         self.slippage = slippage
         self.commission = commission
+
+        # Align all tickers to a master index (union of dates)
+        self.master_index = pd.Index(sorted(set().union(*(df.index for df in self.data.values()))))
+        for t in self.data:
+            self.data[t] = self.data[t].reindex(self.master_index, method='ffill')
+            self.signals[t] = self.signals[t].reindex(self.master_index, method='ffill').fillna(0)
