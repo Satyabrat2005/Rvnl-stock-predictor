@@ -14,3 +14,9 @@ class PortfolioBacktest:
             slippage (float): fraction slippage on trades
             commission (float): flat commission per trade
         """
+        self.data = data_dict
+        self.signals = signals_dict
+        self.weights = weights or {t: 1/len(data_dict) for t in data_dict}
+        self.initial_capital = initial_capital
+        self.slippage = slippage
+        self.commission = commission
