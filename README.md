@@ -1,6 +1,30 @@
 ## Stock Prediction Dashboard and add on
 This project proposes a hybrid AI-driven pipeline for stock market prediction and trading signal generation, applied to **RVNL (Rail Vikas Nigam Limited)**—a mid-cap equity traded on the NSE. The pipeline integrates deep learning (LSTM, Transformer), tree-based ensemble learning (XGBoost), explainable AI (SHAP, Attention), and quantitative trading logic for generating actionable buy/sell signals.
 
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/placeholder/cyber_finance_banner.gif" alt="FinTech AI Lab – Cyber Finance" width="90%"/>
+</p>
+
+<h1 align="center">⚡ FinTech AI Lab ⚡</h1>
+<h3 align="center">Predict • Trade • Explain • Optimize</h3>
+
+<p align="center">
+  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.10+-blue?logo=python&logoColor=white" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/TensorFlow-black?logo=tensorflow&logoColor=orange" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/PyTorch-black?logo=pytorch&logoColor=red" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/Finance%20AI-Quant%20Research-green?logo=apache-spark&logoColor=white" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/Streamlit-Dashboard%20Ready-ff4b4b?logo=streamlit&logoColor=white" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/Status-Active%20Research-purple?logo=github&logoColor=white" /></a>
+</p>
+
+<p align="center">
+  <em>“Where Artificial Intelligence meets Wall Street.”</em>
+</p>
+
+---
+
+
+
 🔒 The repository will be made public post-acceptance of our research paper submitted to an ACM international conference.
 
 ---
