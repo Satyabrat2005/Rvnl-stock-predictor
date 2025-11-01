@@ -1,5 +1,4 @@
-## RVNL Stock Forecasting and Trading Strategy using LSTM, Transformer, and XGBoost
-
+## Stock Prediction Dashboard and add on
 This project proposes a hybrid AI-driven pipeline for stock market prediction and trading signal generation, applied to **RVNL (Rail Vikas Nigam Limited)**—a mid-cap equity traded on the NSE. The pipeline integrates deep learning (LSTM, Transformer), tree-based ensemble learning (XGBoost), explainable AI (SHAP, Attention), and quantitative trading logic for generating actionable buy/sell signals.
 
 🔒 The repository will be made public post-acceptance of our research paper submitted to an ACM international conference.
