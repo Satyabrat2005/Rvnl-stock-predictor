@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import matplotlib as mlt
 
 class PortfolioBacktest:
     def __init__(self, data_dict, signals_dict, weights=None, initial_capital=100000, slippage=0.0005, commission=0.0):
@@ -40,4 +39,11 @@ class PortfolioBacktest:
         trades = {t: [] for t in self.data}
         positions = {t: 0 for t in self.data}
         shares = {t: 0 for t in self.data}
+
+        for dt in self.master_index:
+            portfolio_value = 0
+            for t, df in self.data.items():
+                price = df.at[dt, 'Close']
+                sig = self.signals[t].at[dt]
+                prev_sig = self.signals[t].shift(1).at[dt] if dt != self.master_index[0] else 0
 
