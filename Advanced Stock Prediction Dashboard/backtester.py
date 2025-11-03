@@ -62,3 +62,10 @@ class PortfolioBacktest:
                     trades[t][-1].update({'exit_time': dt, 'exit_price': exit_price, 'proceeds': proceeds})
                     shares[t] = 0
                     positions[t] = 0
+
+                
+                # Mark position value
+                portfolio_value += shares[t]*price
+
+            # Total portfolio equity
+            equity_curve.loc[dt] = portfolio_cash + portfolio_value # type: ignore
