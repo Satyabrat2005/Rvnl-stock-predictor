@@ -55,3 +55,10 @@ class PortfolioBacktest:
                     trades[t].append({'entry_time': dt, 'entry_price': price*(1+self.slippage), 'shares': shares[t]})
                     positions[t] = 1
 
+                 elif sig == 0 and prev_sig == 1 and positions[t] == 1:
+                    exit_price = price*(1-self.slippage)
+                    proceeds = shares[t]*exit_price - self.commission
+                    portfolio_cash += proceeds
+                    trades[t][-1].update({'exit_time': dt, 'exit_price': exit_price, 'proceeds': proceeds})
+                    shares[t] = 0
+                    positions[t] = 0
