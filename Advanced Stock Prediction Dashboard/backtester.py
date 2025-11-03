@@ -47,3 +47,11 @@ class PortfolioBacktest:
                 sig = self.signals[t].at[dt]
                 prev_sig = self.signals[t].shift(1).at[dt] if dt != self.master_index[0] else 0
 
+                if sig == 1 and prev_sig == 0:
+                    cash_alloc = portfolio_cash * self.weights[t]
+                    shares[t] = cash_alloc / price
+                    cost = shares[t]*price*(1+self.slippage) + self.commission
+                    portfolio_cash -= cost
+                    trades[t].append({'entry_time': dt, 'entry_price': price*(1+self.slippage), 'shares': shares[t]})
+                    positions[t] = 1
+
