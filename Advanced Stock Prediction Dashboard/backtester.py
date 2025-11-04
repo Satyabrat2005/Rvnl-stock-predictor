@@ -85,3 +85,11 @@ class PortfolioBacktest:
         sharpe = ann_return / ann_vol if ann_vol > 0 else np.nan
         drawdown = (equity_curve.cummax() - equity_curve) / equity_curve.cummax()
         max_dd = drawdown.max()
+
+        return {
+            'total_return': total_return,
+            'annualized_return': ann_return,
+            'annualized_vol': ann_vol,
+            'sharpe': sharpe,
+            'max_drawdown': max_dd
+        }
