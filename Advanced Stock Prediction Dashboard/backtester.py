@@ -69,3 +69,5 @@ class PortfolioBacktest:
 
             # Total portfolio equity
             equity_curve.loc[dt] = portfolio_cash + portfolio_value # type: ignore
+
+        return equity_curve, trades
