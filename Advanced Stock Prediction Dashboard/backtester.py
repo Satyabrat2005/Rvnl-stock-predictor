@@ -71,3 +71,17 @@ class PortfolioBacktest:
             equity_curve.loc[dt] = portfolio_cash + portfolio_value # type: ignore
 
         return equity_curve, trades
+
+    def compute_metrics(self, equity_curve):
+        """
+        Compute standard portfolio metrics.
+        Returns:
+            dict: total_return, annualized_return, annualized_vol, sharpe, max_drawdown
+        """
+        returns = equity_curve.pct_change().fillna(0)
+        total_return = equity_curve.iloc[-1]/equity_curve.iloc[0]-1
+        ann_return = (1+total_return)**(252/len(equity_curve))-1 if len(equity_curve) > 1 else 0
+        ann_vol = returns.std() * np.sqrt(252)
+        sharpe = ann_return / ann_vol if ann_vol > 0 else np.nan
+        drawdown = (equity_curve.cummax() - equity_curve) / equity_curve.cummax()
+        max_dd = drawdown.max()
