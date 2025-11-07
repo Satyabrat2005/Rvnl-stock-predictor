@@ -25,3 +25,9 @@ def fetch_price_data(tickers, start, end):
                 elif 'adj' in lc and 'close' in lc: col_map[col] = 'Adj_Close'
                 elif 'volume' in lc: col_map[col] = 'Volume'
             df.rename(columns=col_map, inplace=True) # type: ignore
+
+            # Ensure all required columns exist
+            for c in ['Open','High','Low','Close','Adj_Close','Volume']:
+                if c not in df.columns: # type: ignore
+                    df[c] = df['Close'] # type: ignore
+                  
