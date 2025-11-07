@@ -14,3 +14,8 @@ def fetch_price_data(tickers, start, end):
             if isinstance(df.columns, pd.MultiIndex): # type: ignore
                 df.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in df.columns] # type: ignore
 
+            # Standardize columns
+            col_map = {}
+            for col in df.columns: # type: ignore
+                lc = col.lower()
+
