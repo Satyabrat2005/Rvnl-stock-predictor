@@ -9,3 +9,8 @@ def fetch_price_data(tickers, start, end):
             if df.empty: # type: ignore
                 print(f"No data for {ticker}, skipping...")
                 continue
+
+            # Flatten columns if MultiIndex
+            if isinstance(df.columns, pd.MultiIndex): # type: ignore
+                df.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in df.columns] # type: ignore
+
