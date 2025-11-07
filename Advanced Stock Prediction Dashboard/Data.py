@@ -34,3 +34,9 @@ def fetch_price_data(tickers, start, end):
             df.index = pd.to_datetime(df.index) # type: ignore
             df.sort_index(inplace=True) # type: ignore
             all_data[ticker] = df
+
+      except Exception as e:
+            print(f"Error fetching {ticker}: {e}")
+            continue
+
+    return all_data
