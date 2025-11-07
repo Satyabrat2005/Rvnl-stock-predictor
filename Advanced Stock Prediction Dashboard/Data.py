@@ -18,4 +18,10 @@ def fetch_price_data(tickers, start, end):
             col_map = {}
             for col in df.columns: # type: ignore
                 lc = col.lower()
-
+                if 'open' in lc: col_map[col] = 'Open'
+                elif 'high' in lc: col_map[col] = 'High'
+                elif 'low' in lc: col_map[col] = 'Low'
+                elif 'close' in lc and 'adj' not in lc: col_map[col] = 'Close'
+                elif 'adj' in lc and 'close' in lc: col_map[col] = 'Adj_Close'
+                elif 'volume' in lc: col_map[col] = 'Volume'
+            df.rename(columns=col_map, inplace=True) # type: ignore
