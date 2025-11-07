@@ -30,4 +30,7 @@ def fetch_price_data(tickers, start, end):
             for c in ['Open','High','Low','Close','Adj_Close','Volume']:
                 if c not in df.columns: # type: ignore
                     df[c] = df['Close'] # type: ignore
-                  
+
+            df.index = pd.to_datetime(df.index) # type: ignore
+            df.sort_index(inplace=True) # type: ignore
+            all_data[ticker] = df
