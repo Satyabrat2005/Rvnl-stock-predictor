@@ -14,3 +14,5 @@ def rsi(series, length=14):
     return 100 - (100/(1+rs))
 
 def rolling_volatility(series, window=20):
+    returns = series.pct_change()
+    return returns.rolling(window).std() * np.sqrt(252)
