@@ -12,3 +12,5 @@ def rsi(series, length=14):
     ma_down = down.ewm(alpha=1/length, adjust=False).mean()
     rs = ma_up / (ma_down + 1e-12)
     return 100 - (100/(1+rs))
+
+def rolling_volatility(series, window=20):
