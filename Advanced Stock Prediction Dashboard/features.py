@@ -16,3 +16,5 @@ def rsi(series, length=14):
 def rolling_volatility(series, window=20):
     returns = series.pct_change()
     return returns.rolling(window).std() * np.sqrt(252)
+
+def macd(series, fast=12, slow=26, signal=9):
