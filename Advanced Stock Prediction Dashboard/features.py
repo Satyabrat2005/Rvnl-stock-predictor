@@ -66,3 +66,6 @@ def prepare_features(
         df['bb_upper'], df['bb_lower'] = bollinger_bands(df['Close'])
     if compute_atr:
         df['atr'] = atr(df)
+
+     df.dropna(inplace=True)
+    return df
