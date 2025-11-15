@@ -58,3 +58,11 @@ def prepare_features(
     df['ema_slow'] = ema(df['Close'], slow_ema)
     df['rsi'] = rsi(df['Close'], rsi_len)
     df['vol'] = rolling_volatility(df['Close'], vol_window)
+
+    # Optional advanced indicators
+    if compute_macd:
+        df['macd'], df['macd_signal'], df['macd_hist'] = macd(df['Close'])
+    if compute_bb:
+        df['bb_upper'], df['bb_lower'] = bollinger_bands(df['Close'])
+    if compute_atr:
+        df['atr'] = atr(df)
