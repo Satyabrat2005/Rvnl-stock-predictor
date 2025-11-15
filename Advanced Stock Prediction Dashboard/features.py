@@ -50,3 +50,5 @@ def prepare_features(
     compute_bb=True,
     compute_atr=True
 ):
+    df = df.copy()
+    df['Close'] = df['Adj_Close']
