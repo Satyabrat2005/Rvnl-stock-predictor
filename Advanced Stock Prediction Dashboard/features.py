@@ -29,3 +29,5 @@ def bollinger_bands(series, window=20, n_std=2):
     sma = series.rolling(window).mean()
     std = series.rolling(window).std()
     upper = sma + n_std*std
+    lower = sma - n_std*std
+    return upper, lower
