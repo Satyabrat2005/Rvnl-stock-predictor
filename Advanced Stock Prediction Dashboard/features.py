@@ -24,3 +24,6 @@ def macd(series, fast=12, slow=26, signal=9):
     signal_line = macd_line.ewm(span=signal, adjust=False).mean()
     hist = macd_line - signal_line
     return macd_line, signal_line, hist
+
+def bollinger_bands(series, window=20, n_std=2):
+    sma = series.rolling(window).mean()
