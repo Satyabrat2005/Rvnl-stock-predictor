@@ -14,3 +14,7 @@ def ema_rsi_vol_signals(df, rsi_high=70, vol_thresh=0.6):
     for t in df.index:
         if position == 0 and cross_up.loc[t] and df.loc[t,'rsi']<rsi_high and df.loc[t,'vol']<vol_thresh:
             position = 1
+        elif position == 1 and (cross_down.loc[t] or df.loc[t,'rsi']>rsi_high or df.loc[t,'vol']>vol_thresh):
+            position = 0
+        s.loc[t] = position
+    return s
