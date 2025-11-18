@@ -18,3 +18,5 @@ def ema_rsi_vol_signals(df, rsi_high=70, vol_thresh=0.6):
             position = 0
         s.loc[t] = position
     return s
+
+def
