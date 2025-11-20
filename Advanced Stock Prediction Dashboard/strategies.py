@@ -19,4 +19,10 @@ def ema_rsi_vol_signals(df, rsi_high=70, vol_thresh=0.6):
         s.loc[t] = position
     return s
 
-def
+def bollinger_signals(df, lookback=20, n_std=2):
+    """
+    Buy when price crosses below lower band, sell/exit when price crosses above SMA
+    """
+    s = pd.Series(index=df.index, dtype=float)
+    s[:] = 0.0
+    position = 0
