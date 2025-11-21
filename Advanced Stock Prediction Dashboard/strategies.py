@@ -46,3 +46,5 @@ def macd_signals(df):
     """
     s = pd.Series(index=df.index, dtype=float)
     s[:] = 0.0
+    macd, signal = df['macd'], df['macd_signal']
+    cross_up = (macd > signal) & (macd.shift(1) <= signal.shift(1))
