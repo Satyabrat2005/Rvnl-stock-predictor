@@ -57,3 +57,4 @@ def macd_signals(df):
         elif position == 1 and cross_down.loc[t]:
             position = 0
         s.loc[t] = position
+     return s
