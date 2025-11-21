@@ -44,3 +44,5 @@ def macd_signals(df):
     """
     Buy when MACD line crosses above signal line, exit when crosses below
     """
+    s = pd.Series(index=df.index, dtype=float)
+    s[:] = 0.0
