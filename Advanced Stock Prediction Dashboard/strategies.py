@@ -26,3 +26,8 @@ def bollinger_signals(df, lookback=20, n_std=2):
     s = pd.Series(index=df.index, dtype=float)
     s[:] = 0.0
     position = 0
+    for t in df.index:
+        price = df.loc[t,'Close']
+        lower = df.loc[t,'bb_lower']
+        upper = df.loc[t,'bb_upper']
+        sma = (upper + lower)/2  # middle band approx
