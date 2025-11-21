@@ -48,3 +48,6 @@ def macd_signals(df):
     s[:] = 0.0
     macd, signal = df['macd'], df['macd_signal']
     cross_up = (macd > signal) & (macd.shift(1) <= signal.shift(1))
+    cross_down = (macd < signal) & (macd.shift(1) >= signal.shift(1))
+    
+    position = 0
