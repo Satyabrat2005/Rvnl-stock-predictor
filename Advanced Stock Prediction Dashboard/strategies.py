@@ -39,7 +39,7 @@ def bollinger_signals(df, lookback=20, n_std=2):
         s.loc[t] = position
     return s
 
-# --- MACD Trend Following ---
+# MACD Trend Following
 def macd_signals(df):
     """
     Buy when MACD line crosses above signal line, exit when crosses below
