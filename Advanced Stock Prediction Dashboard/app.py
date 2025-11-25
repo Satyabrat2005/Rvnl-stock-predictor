@@ -1,4 +1,4 @@
-# app.py
+
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -8,7 +8,7 @@ from features import prepare_features
 from strategies import ema_rsi_vol_signals, bollinger_signals, macd_signals
 from backtester import PortfolioBacktest
 
-# --- Helper functions ---
+# Helper functions
 def cagr(equity):
     years = (equity.index[-1] - equity.index[0]).days / 365.25
     return (equity.iloc[-1] / equity.iloc[0]) ** (1 / years) - 1
