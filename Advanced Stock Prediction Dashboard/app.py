@@ -112,7 +112,7 @@ if run_bt:
     col5.metric("CAGR", f"{cagr(eq_curve)*100:.2f}%")
     col6.metric("Calmar Ratio", f"{calmar_ratio(eq_curve):.2f}")
 
-    # --- Interactive Equity Curve ---
+    # Interactive Equity Curve
     st.subheader("Portfolio Equity Curve")
     fig_eq = go.Figure()
     fig_eq.add_trace(go.Scatter(x=eq_curve.index, y=eq_curve.values,
@@ -121,7 +121,7 @@ if run_bt:
                          template='plotly_white')
     st.plotly_chart(fig_eq, use_container_width=True)
 
-    # --- Risk vs Return Dashboard ---
+    # Risk vs Return Dashboard
     st.subheader("Risk vs Return per Ticker")
     rr_data = []
     for t in valid_tickers:
@@ -148,7 +148,7 @@ if run_bt:
                          yaxis_title="Annualized Return", template='plotly_white')
     st.plotly_chart(fig_rr, use_container_width=True)
 
-    # --- Trades & Analytics per Ticker ---
+    # Trades & Analytics per Ticker
     st.subheader("Trades & Price Charts")
     for t in valid_tickers:
         df_trades = trades[t]
@@ -165,7 +165,7 @@ if run_bt:
             st.markdown(f"- Win Rate: {len(df_tr[df_tr['PnL']>0])/len(df_tr)*100:.1f}%")
             st.markdown(f"- Max Win: {df_tr['PnL'].max():.2f}, Max Loss: {df_tr['PnL'].min():.2f}")
 
-            # --- Interactive Price Chart ---
+            # Interactive Price Chart
             fig = go.Figure()
             fig.add_trace(go.Scatter(x=df_price.index, y=df_price['Close'], mode='lines', name='Close', line=dict(color='blue')))
             if 'ema_fast' in df_price.columns and 'ema_slow' in df_price.columns:
@@ -186,7 +186,7 @@ if run_bt:
         else:
             st.info(f"No trades for {t}")
 
-    # --- Export Option ---
+    # Export Option
     st.subheader("Export Data")
     if st.button("Download Trades & Equity Curve Excel"):
         export_data = {f"{t}_trades": pd.DataFrame(trades[t]) for t in valid_tickers}
