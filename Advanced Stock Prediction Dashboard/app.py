@@ -32,11 +32,11 @@ def omega_ratio(equity, target=0.0):
     losses = -(returns - target)[returns < target].sum()
     return gains / losses if losses != 0 else np.nan
 
-# --- Page Setup ---
+# Page Setup 
 st.set_page_config(page_title="JPMQuant Pro", layout="wide")
 st.title("JPMQuant — Advanced Dynamic Portfolio Backtester 🚀")
 
-# --- Sidebar ---
+# Sidebar
 with st.sidebar:
     st.header("Portfolio & Strategy Settings")
     tickers_input = st.text_input("Enter tickers (comma-separated)", "JPM,AAPL,MSFT")
@@ -58,7 +58,7 @@ with st.sidebar:
 
     run_bt = st.button("Run Backtest")
 
-# --- Run Backtest ---
+# Run Backtest
 if run_bt:
     tickers = [t.strip().upper() for t in tickers_input.split(",") if t.strip()]
     st.write(f"Fetching data for tickers: {tickers}")
@@ -75,7 +75,7 @@ if run_bt:
     else:
         st.success(f"Fetched data for: {', '.join(valid_tickers)}")
 
-    # --- Prepare Features ---
+    # Prepare Features
     features_dict = {t: prepare_features(
         df,
         fast_ema=fast_ema,
@@ -87,7 +87,7 @@ if run_bt:
         compute_atr=use_atr
     ) for t, df in data_dict.items()}
 
-    # --- Generate Signals ---
+    # Generate Signals
     signals_dict = {}
     for t, df in features_dict.items():
         if strategy == "EMA+RSI":
@@ -97,12 +97,12 @@ if run_bt:
         elif strategy == "MACD Trend":
             signals_dict[t] = macd_signals(df)
 
-    # --- Run Portfolio Backtest ---
+    # Run Portfolio Backtest
     pb = PortfolioBacktest(data_dict, signals_dict, initial_capital=initial_cap) # type: ignore
     eq_curve, trades = pb.run()
     metrics = pb.compute_metrics(eq_curve)
 
-    # --- Portfolio Metrics ---
+    # Portfolio Metrics 
     st.subheader("Portfolio Metrics")
     col1, col2, col3, col4, col5, col6 = st.columns(6)
     col1.metric("Total Return", f"{metrics['total_return']*100:.2f}%")
