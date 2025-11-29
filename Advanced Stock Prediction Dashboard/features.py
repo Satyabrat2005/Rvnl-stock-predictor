@@ -39,6 +39,9 @@ def atr(df, window=14):
     tr = pd.concat([high_low, high_close, low_close], axis=1).max(axis=1)
     return tr.rolling(window).mean()
 
+def add_returns_features(df): #about to complete yet 
+    df["log_ret"] = np.log(df["Close"]/df["Close"].shift(1))
+
 #Feature preparation
 def prepare_features(
     df,
