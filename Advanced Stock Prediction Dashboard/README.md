@@ -40,3 +40,19 @@ A fully interactive quantitative trading research platform built with Python, St
 • Export Tools
   - Excel export with all trade logs
   - Portfolio equity curve included
+
+----------------------------------------------------------------------------------------------------
+
+🏗️ PROJECT STRUCTURE
+
+project/
+├── app.py                # Streamlit dashboard
+├── data_loader.py        # fetch_price_data()
+├── features.py           # technical indicators + feature prep
+├── strategies.py         # signal generation logic
+├── backtester.py         # portfolio backtesting engine
+└── README.md
+
+----------------------------------------------------------------------------------------------------
+
+▶️ RUN THE DASHBOARD
