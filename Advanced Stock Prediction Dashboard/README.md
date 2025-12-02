@@ -19,3 +19,24 @@ A fully interactive quantitative trading research platform built with Python, St
   - Bollinger Mean Reversion
   - MACD Trend Following
   - Plug-and-play for custom strategies
+
+• Technical Indicators
+  - EMA (fast/slow)
+  - RSI
+  - Volatility (rolling)
+  - Bollinger Bands
+  - MACD (line/signal/hist)
+  - ATR
+  - Log returns & derived features
+    
+• Visualization Dashboard
+  - Interactive equity curve (Plotly)
+  - Per-ticker risk vs return scatter
+  - Sortino-colored performance map
+  - Per-ticker trade chart (entries/exits)
+  - Indicator overlays (EMA, MACD, BB, ATR)
+  - Filterable and dynamic through Streamlit
+
+• Export Tools
+  - Excel export with all trade logs
+  - Portfolio equity curve included
