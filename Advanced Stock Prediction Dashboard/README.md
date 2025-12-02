@@ -13,3 +13,9 @@ A fully interactive quantitative trading research platform built with Python, St
   - Trade-by-trade logs
   - Portfolio equity curve
   - Sharpe, CAGR, Max Drawdown, Calmar, Sortino, Omega
+
+• Strategy Framework
+  - EMA + RSI + Volatility Filter
+  - Bollinger Mean Reversion
+  - MACD Trend Following
+  - Plug-and-play for custom strategies
