@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 
 # Edge-based position sizing
-
 def edge_risk_fraction(df, dt, max_risk=0.02):
     """
     Risk fraction based on EMA edge strength
@@ -14,10 +13,7 @@ def edge_risk_fraction(df, dt, max_risk=0.02):
     edge = max(0.0, min(edge, 0.05))  # cap extreme values
     return (edge / 0.05) * max_risk
 
-
-# -----------------------------------
 # Portfolio Backtester
-# -----------------------------------
 class PortfolioBacktest:
     def __init__(
         self,
@@ -48,7 +44,6 @@ class PortfolioBacktest:
                 .fillna(0)
             )
 
-    # -----------------------------------
     def run(self):
         portfolio_cash = self.initial_capital
         equity_curve = pd.Series(index=self.master_index, dtype=float)
@@ -69,7 +64,6 @@ class PortfolioBacktest:
                     else 0
                 )
 
-                # ---------------- BUY ----------------
                 if sig == 1 and prev_sig == 0 and positions[t] == 0:
                     risk_frac = edge_risk_fraction(df, dt)
                     cash_alloc = portfolio_cash * risk_frac * self.weights[t]
@@ -95,7 +89,6 @@ class PortfolioBacktest:
                             'exit_reason': None
                         })
 
-                # ---------------- EXIT: SIGNAL ----------------
                 elif sig == 0 and prev_sig == 1 and positions[t] == 1:
                     exit_price = price * (1 - self.slippage)
                     proceeds = shares[t] * exit_price - self.commission
@@ -111,7 +104,6 @@ class PortfolioBacktest:
                         'exit_reason': 'SIGNAL'
                     })
 
-                # ---------------- EXIT: ATR STOP ----------------
                 if positions[t] == 1:
                     stop = trades[t][-1]['stop']
                     if price < stop:
@@ -132,11 +124,10 @@ class PortfolioBacktest:
                 # Mark-to-market
                 portfolio_value += shares[t] * price
 
-            equity_curve.loc[dt] = portfolio_cash + portfolio_value # type: ignore
+            equity_curve.loc[dt] = portfolio_cash + portfolio_value #(type: ignore if you paste this code in your vscode it may show error) 
 
         return equity_curve, trades
 
-    # -----------------------------------
     def compute_metrics(self, equity_curve):
         returns = equity_curve.pct_change().fillna(0)
 
