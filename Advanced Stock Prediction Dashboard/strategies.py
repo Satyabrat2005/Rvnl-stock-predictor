@@ -78,3 +78,14 @@ def bollinger_signals(df, lookback=20):
     # Mean reversion → shorter cooldown
     s = apply_cooldown(s, cooldown_days=3)
     return s
+
+# MACD Trend Following
+def macd_signals(df):
+    """
+    MACD trend-following with stability filter
+    """
+    s = pd.Series(index=df.index, dtype=float)
+    s[:] = 0.0
+
+    macd = df['macd']
+    signal = df['macd_signal']
