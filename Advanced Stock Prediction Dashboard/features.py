@@ -53,3 +53,10 @@ def prepare_features(
     compute_atr=True
 ):
     df = df.copy()
+    df['Close'] = df['Adj_Close']
+
+    # Basic indicators
+    df['ema_fast'] = ema(df['Close'], fast_ema)
+    df['ema_slow'] = ema(df['Close'], slow_ema)
+    df['rsi'] = rsi(df['Close'], rsi_len)
+    df['vol'] = rolling_volatility(df['Close'], vol_window)
