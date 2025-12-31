@@ -89,3 +89,9 @@ def macd_signals(df):
 
     macd = df['macd']
     signal = df['macd_signal']
+
+    cross_up = (macd > signal) & (macd.shift(1) <= signal.shift(1))
+    cross_down = (macd < signal) & (macd.shift(1) >= signal.shift(1))
+
+    position = 0
+    for t in df.index:
