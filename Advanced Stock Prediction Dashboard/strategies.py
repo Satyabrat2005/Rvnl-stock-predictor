@@ -51,3 +51,12 @@ def ema_rsi_vol_signals(df, rsi_high=70, vol_quantile=0.6):
     # Apply cooldown (IMPORTANT)
     s = apply_cooldown(s, cooldown_days=5)
     return s
+
+# Bollinger Mean Reversion
+def bollinger_signals(df, lookback=20):
+    """
+    Buy when price crosses below lower band,
+    exit when price reverts to mid-band
+    """
+    s = pd.Series(index=df.index, dtype=float)
+    s[:] = 0.0
