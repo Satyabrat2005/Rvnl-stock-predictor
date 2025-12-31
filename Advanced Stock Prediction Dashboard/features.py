@@ -33,4 +33,10 @@ def bollinger_bands(series, window=20, n_std=2):
     upper = sma + n_std*std
     lower = sma - n_std*std
     return upper, lower
-    
+
+def atr(df, window=14):
+    high_low = df['High'] - df['Low']
+    high_close = (df['High'] - df['Close'].shift()).abs()
+    low_close = (df['Low'] - df['Close'].shift()).abs()
+    tr = pd.concat([high_low, high_close, low_close], axis=1).max(axis=1)
+    return tr.rolling(window).mean()
