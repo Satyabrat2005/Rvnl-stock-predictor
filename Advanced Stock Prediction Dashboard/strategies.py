@@ -95,3 +95,9 @@ def macd_signals(df):
 
     position = 0
     for t in df.index:
+        if position == 0 and cross_up.loc[t]:
+            position = 1
+        elif position == 1 and cross_down.loc[t]:
+            position = 0
+
+        s.loc[t] = position
