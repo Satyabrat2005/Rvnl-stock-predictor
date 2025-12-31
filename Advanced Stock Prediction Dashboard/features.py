@@ -17,3 +17,12 @@ def rsi(series, length=14):
 def rolling_volatility(series, window=20):
     returns = series.pct_change()
     return returns.rolling(window).std() * np.sqrt(252)
+
+# --- Advanced indicators ---
+def macd(series, fast=12, slow=26, signal=9):
+    ema_fast = series.ewm(span=fast, adjust=False).mean()
+    ema_slow = series.ewm(span=slow, adjust=False).mean()
+    macd_line = ema_fast - ema_slow
+    signal_line = macd_line.ewm(span=signal, adjust=False).mean()
+    hist = macd_line - signal_line
+    return macd_line, signal_line, hist
