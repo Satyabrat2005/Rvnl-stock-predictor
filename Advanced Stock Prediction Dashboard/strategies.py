@@ -18,3 +18,9 @@ def ema_rsi_vol_signals(df, rsi_high=70, vol_quantile=0.6):
     """
     s = pd.Series(index=df.index, dtype=float)
     s[:] = 0.0
+
+    ema_fast = df['ema_fast']
+    ema_slow = df['ema_slow']
+
+    cross_up = (ema_fast > ema_slow) & (ema_fast.shift(1) <= ema_slow.shift(1))
+    cross_down = (ema_fast < ema_slow) & (ema_fast.shift(1) >= ema_slow.shift(1))
