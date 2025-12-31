@@ -47,3 +47,7 @@ def ema_rsi_vol_signals(df, rsi_high=70, vol_quantile=0.6):
                 position = 0
 
         s.loc[t] = position
+
+    # Apply cooldown (IMPORTANT)
+    s = apply_cooldown(s, cooldown_days=5)
+    return s
