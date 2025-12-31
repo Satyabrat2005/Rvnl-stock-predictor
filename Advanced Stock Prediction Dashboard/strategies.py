@@ -24,3 +24,16 @@ def ema_rsi_vol_signals(df, rsi_high=70, vol_quantile=0.6):
 
     cross_up = (ema_fast > ema_slow) & (ema_fast.shift(1) <= ema_slow.shift(1))
     cross_down = (ema_fast < ema_slow) & (ema_fast.shift(1) >= ema_slow.shift(1))
+
+    # Adaptive volatility threshold
+    vol_thresh = df['vol'].rolling(252).quantile(vol_quantile)
+
+    position = 0
+    for t in df.index:
+        if position == 0:
+            if (
+                cross_up.loc[t]
+                and df.loc[t, 'rsi'] < rsi_high
+                and df.loc[t, 'vol'] < vol_thresh.loc[t]
+            ):
+                position = 1
