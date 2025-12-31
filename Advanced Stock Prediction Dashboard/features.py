@@ -40,3 +40,16 @@ def atr(df, window=14):
     low_close = (df['Low'] - df['Close'].shift()).abs()
     tr = pd.concat([high_low, high_close, low_close], axis=1).max(axis=1)
     return tr.rolling(window).mean()
+
+# --- Feature preparation ---
+def prepare_features(
+    df,
+    fast_ema=20,
+    slow_ema=50,
+    rsi_len=14,
+    vol_window=20,
+    compute_macd=True,
+    compute_bb=True,
+    compute_atr=True
+):
+    df = df.copy()
