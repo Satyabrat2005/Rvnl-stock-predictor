@@ -60,3 +60,21 @@ def bollinger_signals(df, lookback=20):
     """
     s = pd.Series(index=df.index, dtype=float)
     s[:] = 0.0
+
+    position = 0
+    for t in df.index:
+        price = df.loc[t, 'Close']
+        lower = df.loc[t, 'bb_lower']
+        upper = df.loc[t, 'bb_upper']
+        mid = (upper + lower) / 2
+
+        if position == 0 and price < lower:
+            position = 1
+        elif position == 1 and price > mid:
+            position = 0
+
+        s.loc[t] = position
+
+    # Mean reversion → shorter cooldown
+    s = apply_cooldown(s, cooldown_days=3)
+    return s
