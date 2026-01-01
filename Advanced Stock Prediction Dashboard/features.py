@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-# --- Basic indicators ---
+# Basic indicators 
 def ema(series, span):
     return series.ewm(span=span, adjust=False).mean()
 
@@ -18,7 +18,7 @@ def rolling_volatility(series, window=20):
     returns = series.pct_change()
     return returns.rolling(window).std() * np.sqrt(252)
 
-# --- Advanced indicators ---
+# Advanced indicators
 def macd(series, fast=12, slow=26, signal=9):
     ema_fast = series.ewm(span=fast, adjust=False).mean()
     ema_slow = series.ewm(span=slow, adjust=False).mean()
@@ -41,7 +41,7 @@ def atr(df, window=14):
     tr = pd.concat([high_low, high_close, low_close], axis=1).max(axis=1)
     return tr.rolling(window).mean()
 
-# --- Feature preparation ---
+# Feature preparation 
 def prepare_features(
     df,
     fast_ema=20,
