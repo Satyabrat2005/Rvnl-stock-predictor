@@ -7,3 +7,7 @@ def fetch_price_data(tickers, start, end
     Fetch OHLCV data reliably (works better for NSE stocks than yf.download)
     """
     all_data = {}
+
+    for ticker in tickers:
+        try:
+            tk = yf.Ticker(ticker)
