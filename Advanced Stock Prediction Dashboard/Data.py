@@ -23,3 +23,12 @@ def fetch_price_data(tickers, start, end
             if df.empty:
                 print(f"No data for {ticker}, skipping...")
                 continue
+
+            # Standardize columns
+            df.rename(columns={
+                "Open": "Open",
+                "High": "High",
+                "Low": "Low",
+                "Close": "Close",
+                "Volume": "Volume"
+            }, inplace=True)
