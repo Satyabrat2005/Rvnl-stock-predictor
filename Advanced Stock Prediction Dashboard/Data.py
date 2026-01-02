@@ -41,3 +41,8 @@ def fetch_price_data(tickers, start, end
 
             # Ensure all required columns exist
             for c in ["Open", "High", "Low", "Close", "Adj_Close", "Volume"]:
+                if c not in df.columns:
+                    df[c] = df["Close"]
+
+            # Clean index
+            df.index = pd.to_datetime(df.index)
