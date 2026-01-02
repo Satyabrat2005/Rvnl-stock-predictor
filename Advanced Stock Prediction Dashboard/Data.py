@@ -46,3 +46,7 @@ def fetch_price_data(tickers, start, end
 
             # Clean index
             df.index = pd.to_datetime(df.index)
+
+            df.sort_index(inplace=True)
+
+            all_data[ticker] = df
