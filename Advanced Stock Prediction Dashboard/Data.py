@@ -32,3 +32,7 @@ def fetch_price_data(tickers, start, end
                 "Close": "Close",
                 "Volume": "Volume"
             }, inplace=True)
+
+            # Adjusted Close handling
+            if "Adj Close" in df.columns:
+                df["Adj_Close"] = df["Adj Close"]
