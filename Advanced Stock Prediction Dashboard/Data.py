@@ -19,3 +19,7 @@ def fetch_price_data(tickers, start, end
                 auto_adjust=False,
                 actions=False
             )
+
+            if df.empty:
+                print(f"No data for {ticker}, skipping...")
+                continue
