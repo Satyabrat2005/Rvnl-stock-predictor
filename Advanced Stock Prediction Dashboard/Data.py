@@ -11,3 +11,11 @@ def fetch_price_data(tickers, start, end
     for ticker in tickers:
         try:
             tk = yf.Ticker(ticker)
+
+            # history() is more reliable than download() for NSE
+            df = tk.history(
+                start=start,
+                end=end,
+                auto_adjust=False,
+                actions=False
+            )
