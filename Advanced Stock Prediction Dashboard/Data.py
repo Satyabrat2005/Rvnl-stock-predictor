@@ -50,3 +50,9 @@ def fetch_price_data(tickers, start, end
             df.sort_index(inplace=True)
 
             all_data[ticker] = df
+
+        except Exception as e:
+            print(f"Error fetching {ticker}: {e}")
+            continue
+
+    return all_data
