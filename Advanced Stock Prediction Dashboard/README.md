@@ -56,3 +56,4 @@ project/
 ----------------------------------------------------------------------------------------------------
 
 ▶️ RUN THE DASHBOARD
+<img width="2534" height="1408" alt="Screenshot 2025-10-25 231059" src="https://github.com/user-attachments/assets/8ba1934d-9ff1-4987-a919-14c914e1a983" />
